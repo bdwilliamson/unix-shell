@@ -1,9 +1,0 @@
-\frametitle{Running GUI-less: some advice}
-Work up code slowly!
-\begin{itemize}
-\item Make sure your base code (e.g. \texttt{oneTest}) works correctly
-\item Make sure the loop works (usually in GUI) (e.g. \texttt{permTest} with small B)
-\item Make sure the looping and parameter setting works in Rscript, with small B (check output!)
-\end{itemize}
-
-Once your code passes all of these checks, \emph{then} run with a large B.
