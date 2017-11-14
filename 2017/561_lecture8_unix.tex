@@ -270,7 +270,7 @@ seed=547 n=500 truebeta=2
 \end{verbatim}}
  ... which creates an object \texttt{ex1\_output.txt} containing all of the output we saved (only the average values and the system time).
 
-Nothing else is saved! Takes 13284 seconds (3.7 hours).
+Nothing else is saved! Takes 43 seconds (would take longer, perhaps, on a personal computer or on Box). \textcolor{red}{Do you expect things would take longer if we also were getting bootstrap CIs? How much longer?}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -332,12 +332,12 @@ seed=501 n=101 truebeta=2 &
 % bootstrap vs permutation test
 \begin{frame}[fragile]
 \frametitle{Example: robust vs model-based SEs}
-After 3.7 hours, we get the following output (what could we have saved to make things slightly more interesting?)
+After 43 seconds, we get the following output (what could we have saved to make things slightly more interesting?)
 
 \begin{verbatim}
 [brianw26@cox ~/biost_561]$ cat ex1_output.txt
      user  system   elapsed
-13286.337   0.343 13284.293
+   43.167  0.008    43.172
        x    Model   Sandwich
 1.999183 0.738700   0.948900
 \end{verbatim}
@@ -352,17 +352,31 @@ library(sandwich)
 set.seed(seed)
 system.time(output <- replicate(B, doOne(n = n, beta = truebeta)))
 # apply(output, 1, mean)
-save(file=paste("ex3_output_n_", n, "_beta_", truebeta, "_b_", B, 
-                "_seed_", seed, ".Rdata", sep = ""))
+saveRDS(file=paste("ex3_output_n_", n, "_beta_", truebeta, "_b_", B, 
+                "_seed_", seed, ".rds", sep = ""))
 \end{verbatim}
 }
+
+\textcolor{blue}{What would we additionally need to save to re-construct the CIs?} (besides saving the CIs themselves)
+
 \small
-${}^*$ the rest is the same as \texttt{se\_ex1.R} 
+${}^*$ the rest is the same as \texttt{se\_ex1.R}
 \end{frame}
 
 \begin{frame}
 \frametitle{Example: robust vs model-based SEs \small (interesting?)}
 % PICTURES OF THE SAMPLING DISTRIBUTIONS, PERCENT COVER
+\centering
+\includegraphics[width = 0.6\textwidth]{se_ex3_beta_ests.png}
+\small
+
+\begin{tabular}[t]{l|r|r}
+\hline
+  & Model-based & Sandwich\\
+\hline
+Coverage & 0.748 & 0.9494\\
+\hline
+\end{tabular}
 \end{frame}
 
 \section{Cluster computing and shell scripting}

@@ -53,7 +53,7 @@ doOne <- function(n, beta) {
   
   ## extract model coefficients and SEs
   est <- coefficients(mod)[2]
-  se <- vector("numeric", 3)
+  se <- vector("numeric", 2)
   se[1] <- sqrt(diag(vcov(mod)))[2]
   se[2] <- sqrt(diag(vcovHC(mod, "HC0")))[2]
   

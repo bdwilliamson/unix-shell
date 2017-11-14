@@ -53,7 +53,7 @@ doOne <- function(n, beta) {
   
   ## extract model coefficients and SEs
   est <- coefficients(mod)[2]
-  se <- vector("numeric", 3)
+  se <- vector("numeric", 2)
   se[1] <- sqrt(diag(vcov(mod)))[2]
   se[2] <- sqrt(diag(vcovHC(mod, "HC0")))[2]
   
@@ -70,4 +70,4 @@ library(sandwich)
 set.seed(seed)
 system.time(output <- replicate(B, doOne(n = n, beta = truebeta)))
 # apply(output, 1, mean)
-save(file=paste("ex3_output_n_", n, "_beta_", truebeta, "_b_", B, "_seed_", seed, ".Rdata", sep = ""))
+saveRDS(file=paste("ex3_output_n_", n, "_beta_", truebeta, "_b_", B, "_seed_", seed, ".rds", sep = ""))
