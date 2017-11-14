@@ -1,0 +1,9 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Motivation}{2}{0}{1}
+\beamer@sectionintoc {2}{Unix systems}{5}{0}{2}
+\beamer@sectionintoc {3}{Running GUI-less}{8}{0}{3}
+\beamer@subsectionintoc {3}{1}{Running multiple jobs}{13}{0}{3}
+\beamer@sectionintoc {4}{Cluster computing and shell scripting}{17}{0}{4}
+\beamer@subsectionintoc {4}{1}{Running a single job}{25}{0}{4}
+\beamer@subsectionintoc {4}{2}{Single job: Bayes}{29}{0}{4}
+\beamer@subsectionintoc {4}{3}{Multiple jobs: Bayes}{33}{0}{4}
