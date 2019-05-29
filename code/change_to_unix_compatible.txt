@@ -1,2 +1,0 @@
-Can also use dos2unix in linux to change file eol compatability
-usage: dos2unix myfile.sh
