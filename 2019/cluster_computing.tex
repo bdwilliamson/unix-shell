@@ -154,8 +154,25 @@ We will use the cluster to do this!
 \frametitle{Coding for the cluster}
 Before moving to the cluster, we need to code differently: \vspace{-0.3cm} \pause
 \begin{itemize}
-\item 
+\item modular code \pause (\textcolor{cyan}{easy debugging}) \pause
+\item setting seeds \pause (\textcolor{ForestGreen}{reproducible results}) \pause
+\item saving output \pause (\textcolor{BurntOrange}{for results!})
 \end{itemize}
+
+The \texttt{simulator} (Lecture 4) makes this easy: \vspace{-0.3cm} \pause
+\begin{itemize}
+\item forces you to code modularly \pause
+\item forces you to set a seed \pause
+\item forces you to save lots of output \pause
+\end{itemize}
+
+A couple of drawbacks: \vspace{-0.3cm} \pause
+\begin{itemize}
+\item can cause memory leaks \pause
+\item sometimes difficult to link to cluster nodes \pause
+\end{itemize}
+
+Today, I'll provide an alternative method (this should not always replace the simulator!).
 \end{frame}
 
 \begin{frame}
@@ -166,6 +183,10 @@ Before moving to the cluster, we need to code differently: \vspace{-0.3cm} \paus
 \begin{frame}
 \frametitle{Coding for the cluster: setting the seed}
 
+\end{frame}
+
+\begin{frame}
+\frametitle{Coding for the cluster: \texttt{\#!} and executables}
 \end{frame}
 
 \begin{frame}
