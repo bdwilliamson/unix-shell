@@ -11,6 +11,9 @@ library("methods")
 library("sandwich")
 ## get command line arguments
 library("argparse")
+## tidy stuff
+library("dplyr")
+library("tidyr")
 ## generate data
 source("generate_data.R")
 ## run the simulation once

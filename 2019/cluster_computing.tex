@@ -199,25 +199,94 @@ Answers and Brian's comments (to be posted after class)
 \begin{frame}
 \frametitle{Coding for the cluster: setting the seed}
 
+Setting a seed is \textcolor{blue}{vital} if your code involves \vspace{-0.3cm} \pause
+\begin{itemize}
+\item generating data (e.g., simulation) \pause
+\item cross-validation \pause
+\item \dots \pause
+\end{itemize}
+and you want it to be reproducible (you do!). \pause
+
+Things to remember on setting a seed: \vspace{-0.3cm} \pause
+\begin{itemize}
+\item set seeds in a logical, reproducible way \pause
+\item set a \textcolor{cyan}{unique seed} for each job \pause
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Coding for the cluster: \texttt{\#!} and executables}
+
+In Lecture 8, you learned about \texttt{\#!} and executable files. \pause
+
+\texttt{\#!} (``shebang''): \vspace{-0.3cm} \pause
+\begin{itemize}
+\item tells your computer where to look for executable file to run your code
+\item place at top of file \pause
+\end{itemize}
+
+Executables (e.g., \texttt{/bin/sh}): \vspace{-0.3cm} \pause
+\begin{itemize}
+\item actually run your code
+\item other examples: \texttt{/bin/bash}, \texttt{/usr/local/bin/Rscript}, \texttt{/usr/local/bin/python3}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Coding for the cluster: saving output}
+
+Running without a graphical user interface (GUI) requires you to pre-specify the output you want to save.
+
+How much/what to save? \pause Depends on what you need! \vspace{-0.3cm} \pause
+\begin{itemize}
+\item More output: easy debugging, wastes memory/time \pause
+\item Think ahead: careful planning can make results tidy/nice \pause
+\end{itemize}
+
+This is important regardless of whether or not you use the \texttt{simulator}!
+
+Handy functions for saving output: \texttt{saveRDS}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Coding for the cluster: saving output}
+
+Your turn!
+
+In the robust SEs example, our goal is to compare model-based to robust SEs. \textbf{With a partner}, answer the following questions: \vspace{-0.3cm}
+\begin{enumerate}
+\item What output should we save?
+\item How should we evaluate performance of the SEs? 
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Coding for the cluster: robust SEs}
+
+Check out \texttt{run\_sim\_robust\_se.R} in the \texttt{code} directory!
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Coding for the cluster: debugging}
 
-\end{frame}
+Debugging is hard without a GUI. \pause
 
+Best practices (in my opinion): \vspace{-0.3cm} \pause
+\begin{itemize}
+\item debug \textbf{everything} on your machine first \pause
+\item modular code \pause (isolate bugs) \pause
+\item run one job for subset of parameters prior to cluster
+\end{itemize}
+
+\end{frame}
 
 \begin{frame}
 \frametitle{Coding for the cluster: compiling output}
+
+Check out \texttt{load\_sim\_robust\_se.R} in the \texttt{code} directory!
 
 \end{frame}
 
@@ -342,7 +411,7 @@ Jobs: \vspace{-0.3cm} \pause
 \item can be submitted to the cluster compute nodes \pause
 \end{itemize}
 
-Example job: 
+Example job: run \texttt{run\_sim\_robust\_se.R} with 50 replicates
 \end{frame}
 
 \begin{frame}
@@ -353,24 +422,162 @@ Example job:
 \end{frame}
 
 \begin{frame}
+\frametitle{Using the cluster: calling your \texttt{R} script}
+
+Your turn!
+
+Check out the file \texttt{call\_sim\_robust\_se.sh}. \textbf{With a partner}, answer the following questions: \vspace{-0.3cm}
+\begin{enumerate}
+\item What does the \texttt{\$} mean?
+\item How many command-line arguments does \texttt{run\_sim\_robust\_se.R} take?
+\item What do the command-line arguments do?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
 \frametitle{Using the cluster: submitting jobs}
 Workhorse command on SGE: \href{http://gridscheduler.sourceforge.net/htmlman/htmlman1/qsub.html}{qsub}
 
 Many options, including: \vspace{-0.3cm} \pause
 \begin{itemize}
-\item 
+\item \texttt{cwd}: execute script in current working directory \pause
+\item \texttt{e} and \texttt{o}: send error and output files to a folder, e.g., \texttt{iotrash/} \pause
+\item \texttt{t <task1-taskn>} submits a job array with \texttt{taskn}$-$\texttt{task1} tasks \pause (more to come on this)
 \end{itemize}
 
 Options are specified with a single \texttt{-}, as you saw in Lecture 8.
 \end{frame}
 
 \begin{frame}
-\frametitle{Using the cluster: checking jobs}
+\frametitle{Using the cluster: job arrays}
+
+Continuum of task types: \vspace{-0.3cm} \pause
+\begin{itemize}
+\item embarrassingly parallel: \pause can be split into sub-tasks run simultaneously \pause (e.g., sim with varying parameters)
+\item inherently serial: \pause cannot be split into concurrent sub-tasks \pause (e.g., \texttt{run\_sim\_robust\_se.R} with one replicate per job) \pause
+\end{itemize}
+
+\textcolor{blue}{Job arrays} make embarrassingly parallel tasks easy: \vspace{-0.3cm} \pause
+\begin{itemize}
+\item unique identifier for an entire set of jobs \pause (easy to manage) \pause
+\item unique identifier for each task within array \pause (set simulation parameters) \pause
+\item displays nicely on cluster \pause (part of not flooding) 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Using the cluster: batch submission scripts}
+
+Your turn!
+
+Check out the file \texttt{submit\_sim\_robust\_se.sh}. \textbf{With a partner}, answer the following questions: \vspace{-0.3cm}
+\begin{enumerate}
+\item What do lines 3 and 4 do? 
+\item How many jobs are in my array if I want 5000 total jobs and 50 replicates per job?
+\end{enumerate}
 
 \end{frame}
 
 \begin{frame}
+\frametitle{Using the cluster: batch submission}
+
+Your turn! 
+
+Run the executable file \texttt{submit\_sim\_robust\_se.sh}, with command line arguments \vspace{-0.3cm}
+\begin{itemize}
+\item \texttt{"robust\_se"}
+\item 5000
+\item 50
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Using the cluster: \texttt{simulator}}
+\texttt{simulator} on the cluster: you have to grab nodes \textcolor{red}{manually}. \pause
+
+Then, pass them as a character list into the argument \texttt{parallel}, e.g., \pause
+\begin{verbatim}
+list_of_names <- <get correct names>
+simulate_from_model(nsim = 1000, 
+       index = 1:3, 
+       parallel = list(socket_names = list_of_names))
+\end{verbatim} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Using the cluster: checking and altering jobs}
+
+Many options once you have submitted a job: \vspace{-0.3cm} \pause
+\begin{itemize}
+\item \texttt{qstat} checks queue status; \vspace{-0.1cm} \pause helpful args:
+\begin{itemize}
+\item \texttt{f} shows full status of jobs
+\item \texttt{u <user>} shows status only for \texttt{user} (e.g., \texttt{brianw26})
+\item \texttt{j <jobnum>} shows details for a single job 
+\end{itemize} \pause
+\item \texttt{qhold <job\_id>[.tasklist]} puts a hold on job \texttt{job\_id} (and optionally array elements in \texttt{tasklist}) \pause
+\item \texttt{qrls <job\_id>} removes a hold on a job
+\item \texttt{qdel <job\_id>} deletes a job
+\item \texttt{qalter <job\_id>} alters a job 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Using the cluster: other helpful SGE commands}
+
+Remember: \texttt{bayes} is a shared resource! \pause
+
+Rule of thumb: \textcolor{ForestGreen}{20} jobs running on cluster at once. \pause
+
+Ways to help share the cluster: \vspace{-0.3cm} \pause
+\begin{itemize}
+\item Submit batch jobs in job arrays \pause
+\item Use holds on jobs, using \texttt{tc} argument in \texttt{qsub} \pause
+\item Estimate timing of smallest job, consider this when creating and submitting job arrays
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Using the cluster: checking and altering jobs}
+
+Your turn!
+
+\begin{enumerate}
+\item Check the status of \textbf{your} job array (replace my netid with yours): \texttt{qstat -f -u brianw26}
+\item Allow only 20 jobs to run at a time (replace \texttt{<job\_id>} with your job id): \texttt{qalter <job\_id> -tc 20}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Using the cluster: wrapping up}
+After all jobs are finished, pull results back to your machine. \pause
+
+Then run your downstream code to compile results! \pause
+
+Your turn! \vspace{-0.3cm}
+\begin{enumerate}
+\item Pull results files back to your computer
+\item Run \texttt{load\_sim\_robust\_se.R}
+\item What can you conclude based on these results?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Using the cluster: wrapping up}
+Today, you practiced how to \vspace{-0.3cm} \pause
+\begin{itemize}
+\item run code without a GUI, \pause
+\item use shell scripts, \pause
+\item build a simulation, \pause
+\item code modularly, \pause
+\item and use the department cluster! \pause
+\end{itemize}
+
+These skills are easily portable to other cluster systems and your own coding projects (e.g., \texttt{R} packages). \pause
+
+Remember to \textcolor{blue}{be nice}: the cluster is a shared resource!
+
 \end{frame}
 
 % section 3: appendix, other useful commands
@@ -383,5 +590,97 @@ Options are specified with a single \texttt{-}, as you saw in Lecture 8.
 \end{frame}
 \begin{frame}
 \frametitle{Useful things: Windows file compatability}
+Editing files in Windows carries risks. 
+
+One such risk is adding \textit{control characters} that cannot be processed on Unix systems (e.g., Linux on department cluster).
+
+A helpful tool to remove this characters is \texttt{dos2unix}: to remove control characters from \texttt{myfile.sh}, run \texttt{dos2unix myfile.sh}.
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Useful things: emails and other defaults}
+You can set default behavior (on \texttt{bayes}, but similar for other systems) by creating a file called \texttt{.sge\_request}. 
+
+Mine reads \vspace{-0.3cm}
+\begin{verbatim}
+-j y
+-cwd
+-S /bin/bash
+-q normal.q
+-M brianw26@uw.edu
+-m e
+\end{verbatim}
+
+Which means: \vspace{-0.3cm}
+\begin{itemize}
+\item submit either binary or script file
+\item run using \texttt{bash}
+\item email me
+\item email me at end of job
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Useful things: aliases and functions (Mac/Linux)}
+You will probably end up logging into the cluster or sending files back and forth \textcolor{blue}{quite often}.
+
+Having \textit{aliases} and \textit{bash functions} set up makes this easier.
+
+Creating aliases: \vspace{-0.3cm} 
+\begin{enumerate}
+\item go to your \texttt{.ssh} folder (in your home directory on your computer)
+\item create a file called \texttt{config} (using, e.g., vim)
+\item edit it using the template below
+\end{enumerate} \vspace{-0.3cm}
+{\scriptsize
+\begin{verbatim}
+Host <replace with, e.g., bayes>
+    HostName <replace with, e.g., bayes.biostat.washington.edu>
+    User <replace with, e.g., brianw26>
+\end{verbatim}
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Useful things: Useful things: aliases and functions (Mac/Linux)}
+Creating functions: \vspace{-0.3cm} 
+\begin{enumerate}
+\item go to your home directory
+\item create a file called, e.g., \texttt{.bash\_funcs}
+\item edit it using the template below
+\item edit your \texttt{.bashrc} file to include the lines \vspace{-0.1cm}
+{\scriptsize
+\begin{verbatim}
+if [ -f ~/.bash_funcs ]; then
+    . ~/.bash_funcs
+fi
+\end{verbatim}
+}
+(makes sure that \texttt{.bash\_funcs} is sourced when you open a new Terminal window)
+\end{enumerate} \vspace{-0.3cm}
+{\scriptsize
+\begin{verbatim}
+function_name () {
+    commands
+}
+\end{verbatim}
+}
+
+E.g.~: send R files from cwd to specified directory on \texttt{bayes}: \vspace{-0.3cm}
+{\scriptsize
+\begin{verbatim}
+send_r_bayes () {
+    scp *.R brianw26@bayes.biostat.washington.edu:~/$1
+}
+\end{verbatim}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Useful things: FileZilla (all, but esp. Windows)}
+FileZilla is a nice program for pulling results back to your computer (via \texttt{scp}). 
+
+It can be used on all types of computers, but is especially helpful for Windows (since command prompt is strange!).
+\end{frame}
+
 \end{document}
