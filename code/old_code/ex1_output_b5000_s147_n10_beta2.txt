@@ -1,0 +1,4 @@
+    user   system  elapsed 
+5003.993    0.143 5003.525 
+        x     Model  Sandwich Bootstrap 
+ 2.003587  0.716000  0.727400  0.850400 
