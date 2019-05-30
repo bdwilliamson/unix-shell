@@ -192,7 +192,12 @@ Go to the \texttt{code} subdirectory. Then answer these questions \textbf{with a
 \begin{frame}
 \frametitle{Coding for the cluster: modular code}
 
-Answers and Brian's comments (to be posted after class)
+Answers: \vspace{-0.3cm}
+\begin{enumerate}
+\item \textcolor{blue}{\texttt{do\_one} runs the simulation a single time for a given $n$ and $\beta_1$; it returns a tibble with $n$, $\beta_1$, $\hat{\beta}_1$, a confidence interval for $\beta_1$, and the type of SE estimator (model-based, sandwich). Argument are $n$ (sample size) and $\beta$ (true $\beta_1$).}
+\item \textcolor{blue}{\texttt{generate\_data} generates a single dataset with $n$ observations from the specified data-generating mechanism and returns this dataset. Argument are $n$ (sample size) and $\beta$ (true $\beta_1$).}
+\item \textcolor{blue}{Brian's comments are on GitHub in the \texttt{code/} directory}
+\end{enumerate}
 
 \end{frame}
 
@@ -348,7 +353,17 @@ Since this is a shared resource, being \textcolor{blue}{nice} is important: \vsp
 We'll practice good habits for being nice as we go along.
 \end{frame}
 
+\begin{frame}
+\frametitle{Using the cluster: logging in}
+First step: make sure you are through the department firewall.
 
+How: \href{https://apps.biostat.washington.edu/sesame/}{OpenSesame} (on biost intranet) \vspace{-0.3cm}
+\begin{enumerate}
+\item Navigate to OpenSesame website
+\item Select host (e.g., \texttt{Bayes})
+\item Click \texttt{OpenSesame}
+\end{enumerate}
+\end{frame}
 
 \begin{frame}
 \frametitle{Using the cluster: logging in (Windows, incl.~\texttt{box})}
@@ -360,18 +375,6 @@ We'll practice good habits for being nice as we go along.
 \end{enumerate}
 \centering
 \includegraphics[width = .45\textwidth]{plots/tera_term_example.png}
-\end{frame}
-
-\begin{frame}
-\frametitle{Using the cluster: logging in}
-First step: make sure you are through the department firewall.
-
-How: \href{https://apps.biostat.washington.edu/sesame/}{OpenSesame} (on biost intranet) \vspace{-0.3cm}
-\begin{enumerate}
-\item Navigate to OpenSesame website
-\item Select host (e.g., \texttt{Bayes})
-\item Click \texttt{OpenSesame}
-\end{enumerate}
 \end{frame}
 
 \begin{frame}
@@ -395,7 +398,7 @@ How: \href{https://apps.biostat.washington.edu/sesame/}{OpenSesame} (on biost in
 Your turn! Take 2 minutes to complete this activity \textbf{by yourself} (if you don't have a computer, write down how you would do this).
 \begin{enumerate}
 \item Log into \texttt{bayes}
-\item What is the name of the directory that you are when you log in?
+\item What is the name of the directory that you are when you log in? \textcolor{blue}{answer: \textbf{your} home}
 \item Create a directory called \texttt{robust\_ses} in your \texttt{home} directory
 \item Create a directory called \texttt{robust\_ses} on \textbf{your} computer, under \texttt{biost561/lecture9}
 \end{enumerate}
@@ -440,9 +443,20 @@ Your turn!
 
 Check out the file \texttt{call\_sim\_robust\_se.sh}. \textbf{With a partner}, answer the following questions: \vspace{-0.3cm}
 \begin{enumerate}
-\item What does the \texttt{\$} mean?
+\item What does the \texttt{\$} mean? 
 \item How many command-line arguments does \texttt{run\_sim\_robust\_se.R} take?
 \item What do the command-line arguments do?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Using the cluster: calling your \texttt{R} script}
+
+Answers: \vspace{-0.3cm}
+\begin{enumerate}
+\item \textcolor{blue}{Access a command-line arg (e.g., \$1 is command-line arg 1)}
+\item \textcolor{blue}{3}
+\item \textcolor{blue}{Set the simulation name, the total number of replicates, and the number of replicates per job, respectively}
 \end{enumerate}
 \end{frame}
 
@@ -484,8 +498,19 @@ Your turn!
 
 Check out the file \texttt{submit\_sim\_robust\_se.sh}. \textbf{With a partner}, answer the following questions: \vspace{-0.3cm}
 \begin{enumerate}
-\item What do lines 3 and 4 do? 
+\item What do lines 4 and 5 do? 
 \item How many jobs are in my array if I want 5000 total jobs and 50 replicates per job?
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Using the cluster: batch submission scripts}
+
+Answers: \vspace{-0.3cm}
+\begin{enumerate}
+\item \textcolor{blue}{Create a variable called \texttt{num\_n}, the number of unique sample sizes under consideration; create a variable called \texttt{njobs}, equal to the number of total replicates (arg 2) divided by the number of replicates per job (arg 3) multiplied by the number of unique sample sizes under consideration}
+\item \textcolor{blue}{$5000/50\times 3 = 300$ jobs}
 \end{enumerate}
 
 \end{frame}
